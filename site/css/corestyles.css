@@ -1,0 +1,12 @@
+html body {
+	color: #000000;
+	background-color: #FFFFFF;
+}
+
+body h1 {
+	font-family: 'Helvetica Neue Light', 'HelveticaNeue-Lite', 'Helvetica Neue', Helvetica, 'Lucida Sans', Arial, sans-serif;
+	font-size: 100%;
+	text-align: center;
+}
+
+
