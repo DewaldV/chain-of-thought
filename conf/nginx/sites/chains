@@ -1,5 +1,4 @@
 server {
-
 	root /usr/share/chains/www;
 	index index.html index.htm;
 
