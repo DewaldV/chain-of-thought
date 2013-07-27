@@ -1,0 +1,1 @@
+var chains = angular.module('chains', []);
