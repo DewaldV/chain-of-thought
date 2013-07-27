@@ -1,6 +1,10 @@
 server {
 	server_name localhost;
 
+	location /favicon.ico {
+		return 404;
+	}
+
 	location /serv {
 		proxy_pass http://localhost:9090;	
 	}
