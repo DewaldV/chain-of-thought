@@ -1,3 +1,14 @@
+function leadsController($scope)
+{
+	$scope.inEmail = "";
+	$scope.email = "";
+	$scope.button = function() {
+		$scope.email = $scope.inEmail;
+		alert($scope.email);
+	};
+
+}
+
 function chainsController($scope) {
 	$scope.name = "chainsController";
 
@@ -7,3 +18,4 @@ function chainsController($scope) {
 		$scope.aValue = "Some other magic value!"
 	};
 }
+
