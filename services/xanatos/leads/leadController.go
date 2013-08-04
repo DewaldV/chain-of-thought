@@ -1,8 +1,14 @@
-package endDemo
+package leads
 
 import (
     "time"
+   	"code.google.com/p/gorest"
 )
+
+func Register() bool {
+	gorest.RegisterService(new(LeadService))
+	return true
+}
 
 func(serv LeadService) GetLead(id int) Lead {
 	l := GetLead(id)

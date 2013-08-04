@@ -7,7 +7,7 @@ import (
 )
 
 func main(){
-    gorest.RegisterService(new(endDemo.LeadService))
+	endDemo.Register()
     http.Handle("/",gorest.Handle())    
     http.ListenAndServe(":8787",nil)
 }

@@ -1,4 +1,4 @@
-package endDemo
+package leads
 
 import (
 	"labix.org/v2/mgo"
