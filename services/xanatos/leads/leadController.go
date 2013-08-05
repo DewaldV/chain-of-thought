@@ -21,7 +21,7 @@ func(serv LeadService) CreateLead(l Lead) {
 	return
 }
 
-func(serv LeadService) UpdateLead(l Lead) {
+func(serv LeadService) UpdateLead(l Lead, id int) {
 	l.RegistrationDate = time.Now()
 	l.Id = 1
 	return
