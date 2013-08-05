@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html id="ng-app" ng-app="leads">
+<head>
+	<title>Leads Page</title>
+	<link rel="stylesheet" type="text/css" href="css/corestyles.css"/>
+	<link rel="stylesheet" type="text/css" href="css/leads.css"/>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/controllers.js"></script>
+</head>
+<body ng-controller="leadsController">
+	<div class="title">
+		<h1 class="fade-in one">Chain of Thought</h1>
+		<h2 class="fade-in two">Something is coming. Be the first to know</h2>
+		<div class="bordered fade-in three">
+			<input type="email" name="TXTemail" placeholder="YOUR@EMAIL.COM" class="email" ng-model="inEmail" >
+			<button class="bigButton" type="button" ng-click="button()">></button>
+	    </div>		
+	</div>
+</body>
+</html>
