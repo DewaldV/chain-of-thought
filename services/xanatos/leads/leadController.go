@@ -1,8 +1,8 @@
 package leads
 
 import (
-    "time"
-   	"code.google.com/p/gorest"
+	"code.google.com/p/gorest"
+	"time"
 )
 
 func Register() bool {
@@ -10,23 +10,23 @@ func Register() bool {
 	return true
 }
 
-func(serv LeadService) GetLead(id int) Lead {
+func (serv LeadService) GetLead(id int) Lead {
 	l := GetLead(id)
 	return l
 }
 
-func(serv LeadService) CreateLead(l Lead) {
+func (serv LeadService) CreateLead(l Lead) {
 	l.RegistrationDate = time.Now()
 	CreateLead(l)
 	return
 }
 
-func(serv LeadService) UpdateLead(l Lead, id int) {
+func (serv LeadService) UpdateLead(l Lead, id int) {
 	l.RegistrationDate = time.Now()
 	l.Id = 1
 	return
 }
 
-func(serv LeadService) DeleteLead(id int) {
+func (serv LeadService) DeleteLead(id int) {
 	return
 }

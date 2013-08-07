@@ -22,7 +22,7 @@ func GetLead(id int) Lead {
 		panic(err)
 	}
 
-	return result;
+	return result
 }
 
 func CreateLead(l Lead) Lead {
@@ -41,5 +41,5 @@ func CreateLead(l Lead) Lead {
 		panic(err)
 	}
 
-	return l;
+	return l
 }

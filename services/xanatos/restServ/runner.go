@@ -1,13 +1,22 @@
 package main
 
 import (
-    "net/http"
 	"code.google.com/p/gorest"
+	"fmt"
+	"github.com/DewaldV/chain-of-thought/services/xanatos/coreServ"
 	"github.com/DewaldV/chain-of-thought/services/xanatos/leads"
+	"net/http"
 )
 
-func main(){
+const validConfigPaths string = "/Users/DewaldV/Dev/test.conf"
+
+func main() {
 	leads.Register()
-    http.Handle("/",gorest.Handle())    
-    http.ListenAndServe(":8787",nil)
+	err := coreServ.LoadConfig(validConfigPaths)
+	if err != nil {
+		fmt.Printf(err.Error())
+		return
+	}
+	http.Handle(coreServ.Conf.RootContext, gorest.Handle())
+	http.ListenAndServe(string(coreServ.Conf.HttpPort), nil)
 }
