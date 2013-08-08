@@ -10,9 +10,9 @@ func Register() bool {
 	return true
 }
 
-func (serv LeadService) GetLead(id int) Lead {
-	l := GetLead(id)
-	return l
+func (serv LeadService) GetLead(id int) (l Lead) {
+	l = GetLead(id)
+	return
 }
 
 func (serv LeadService) CreateLead(l Lead) {

@@ -10,6 +10,10 @@ import (
 
 const validConfigPaths string = "/Users/DewaldV/Dev/test.conf"
 
+type Registerable interface {
+	Register() bool
+}
+
 func main() {
 	leads.Register()
 	err := coreServ.LoadConfig(validConfigPaths)
