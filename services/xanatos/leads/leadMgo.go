@@ -5,27 +5,17 @@ import (
 	"labix.org/v2/mgo/bson"
 )
 
-func GetMgoLead( email string ) Lead {
-	session, err := mgo.Dial("localhost")
-	if err != nil {
-		panic(err)
-	}
-	defer session.Close()
-
-	// Optional. Switch the session to a monotonic behavior.
-	session.SetMode(mgo.Monotonic, true)
-
-	c := session.DB("test").C("leads")
-	result := Lead{}
-	err = c.Find(bson.M{"email": email}).One(&result)
-	if err != nil {
-		panic(err)
-	}
-
-	return result
+func GetMgoLead(email string) (result *Lead) {
+	result = &Lead{}
+	executeMgo(func(c *mgo.Collection) error { return c.Find(bson.M{"email": email}).One(result) }, "test", "leads")
+	return
 }
 
-func CreateMgoLead(l Lead) Lead {
+func CreateMgoLead(l Lead) {
+	executeMgo(func(c *mgo.Collection) error { return c.Insert(l) }, "test", "leads")
+}
+
+func executeMgo(f func(c *mgo.Collection) error, database string, collection string) error {
 	session, err := mgo.Dial("localhost")
 	if err != nil {
 		panic(err)
@@ -35,11 +25,7 @@ func CreateMgoLead(l Lead) Lead {
 	// Optional. Switch the session to a monotonic behavior.
 	session.SetMode(mgo.Monotonic, true)
 
-	c := session.DB("test").C("leads")
-	err = c.Insert(l)
-	if err != nil {
-		panic(err)
-	}
+	c := session.DB(database).C(collection)
 
-	return l
+	return f(c)
 }

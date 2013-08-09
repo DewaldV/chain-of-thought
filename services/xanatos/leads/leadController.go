@@ -21,7 +21,7 @@ func (serv LeadService) DoOptions() {
 }
 
 func (serv LeadService) GetLead(email string) (l Lead) {
-	l = GetMgoLead(email)
+	l = *GetMgoLead(email)
 	return
 }
 
@@ -34,7 +34,7 @@ func (serv LeadService) CreateLead(l Lead) {
 	return
 }
 
-func (serv LeadService) UpdateLead(l Lead,email string) {
+func (serv LeadService) UpdateLead(l Lead, email string) {
 	l.RegistrationDate = time.Now()
 	return
 }

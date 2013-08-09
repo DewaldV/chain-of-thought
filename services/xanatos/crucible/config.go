@@ -1,4 +1,4 @@
-package coreServ
+package crucible
 
 import (
 	"bufio"

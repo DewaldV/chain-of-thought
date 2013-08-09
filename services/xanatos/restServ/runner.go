@@ -3,7 +3,7 @@ package main
 import (
 	"code.google.com/p/gorest"
 	"fmt"
-	"github.com/DewaldV/chain-of-thought/services/xanatos/coreServ"
+	"github.com/DewaldV/chain-of-thought/services/xanatos/crucible"
 	"github.com/DewaldV/chain-of-thought/services/xanatos/leads"
 	"net/http"
 )
@@ -16,11 +16,11 @@ type Registerable interface {
 
 func main() {
 	leads.Register()
-	err := coreServ.LoadConfig(validConfigPaths)
+	err := crucible.LoadConfig(validConfigPaths)
 	if err != nil {
 		fmt.Printf(err.Error())
 		return
 	}
-	http.Handle(coreServ.Conf.RootContext, gorest.Handle())
-	http.ListenAndServe(fmt.Sprintf(":%d", coreServ.Conf.HttpPort), nil)
+	http.Handle(crucible.Conf.RootContext, gorest.Handle())
+	http.ListenAndServe(fmt.Sprintf(":%d", crucible.Conf.HttpPort), nil)
 }
