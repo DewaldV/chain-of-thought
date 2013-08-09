@@ -21,7 +21,7 @@ func (serv LeadService) DoOptions() {
 }
 
 func (serv LeadService) GetLead(email string) (l Lead) {
-	l = *GetMgoLead(email)
+	l = *GetLead(email)
 	return
 }
 
@@ -29,7 +29,7 @@ func (serv LeadService) CreateLead(l Lead) {
 	l.RegistrationDate = time.Now()
 	serv.ResponseBuilder().AddHeader("Access-Control-Allow-Origin", "http://localhost:8080")
 	fmt.Printf("Received a lead with email: %s /n", l.Email)
-	CreateMgoLead(l)
+	CreateLead(l)
 	serv.ResponseBuilder().SetResponseCode(200)
 	return
 }
