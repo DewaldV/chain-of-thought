@@ -1,4 +1,4 @@
 angular.module('leadsService', ['ngResource'])
-.service(function() { 
-	return $resource('/leads/{id}', { id: '@id' }); 
+.factory('leadsBind', function($resource) { 
+	return $resource('http://localhost\\:8787/leads/:id', { id: '@id' }); 
 });
