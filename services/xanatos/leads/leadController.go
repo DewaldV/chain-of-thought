@@ -13,7 +13,7 @@ func Register() bool {
 func (serv LeadService) DoOptions() {
 	rb := serv.ResponseBuilder()
 	rb.AddHeader("Access-Control-Allow-Origin", "*")
-	//rb.AddHeader("Access-Control-Allow-Header", "*")
+	rb.AddHeader("Access-Control-Allow-Method", "GET, PUT, POST, DELETE")
 }
 
 func (serv LeadService) GetLead(id int) (l Lead) {
