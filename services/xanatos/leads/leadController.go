@@ -20,26 +20,25 @@ func (serv LeadService) DoOptions() {
 	fmt.Printf("Received an Options request, responding with some options.")
 }
 
-func (serv LeadService) GetLead(id int) (l Lead) {
-	l = GetMgoLead(id)
+func (serv LeadService) GetLead(email string) (l Lead) {
+	l = GetMgoLead(email)
 	return
 }
 
 func (serv LeadService) CreateLead(l Lead) {
 	l.RegistrationDate = time.Now()
 	serv.ResponseBuilder().AddHeader("Access-Control-Allow-Origin", "http://localhost:8080")
-	fmt.Printf("Received a lead with email: %s", l.Email)
+	fmt.Printf("Received a lead with email: %s /n", l.Email)
 	CreateMgoLead(l)
 	serv.ResponseBuilder().SetResponseCode(200)
 	return
 }
 
-func (serv LeadService) UpdateLead(l Lead, id int) {
+func (serv LeadService) UpdateLead(l Lead,email string) {
 	l.RegistrationDate = time.Now()
-	l.Id = 1
 	return
 }
 
-func (serv LeadService) DeleteLead(id int) {
+func (serv LeadService) DeleteLead(email string) {
 	return
 }

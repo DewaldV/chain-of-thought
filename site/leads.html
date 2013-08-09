@@ -15,13 +15,15 @@
 	<div class="title">
 		<h1 class="fade-in one">Chain of Thought</h1>
 		<h2 class="fade-in two">Something is coming. Be the first to know</h2>
+		<form id='leadForm' name='leadForm' f='#' >
 		<div class="bordered fade-in three">
-			<input type="email" name="TXTemail" placeholder="YOUR@EMAIL.COM" class="email" ng-model="email" >
-			<button class="bigButton" type="button" ng-click="button()">></button>
+			<input type="email" name="TXTemail" placeholder="YOUR@EMAIL.COM" class="email" ng-model="email" required >
+			<input class="bigButton" type="submit" ng-click="button()" ng-disabled="leadForm.$invalid" value="GO">
 	    </div>
-	</div>
-	<div>
-		<p style="clear: both">Response status: {{Response}}</p>
+	    </form>
+	    <div class="response">
+	    	<p>{{Response}}</p>
+		</div>
 	</div>
 </body>
 </html>

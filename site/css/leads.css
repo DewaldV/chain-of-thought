@@ -29,11 +29,24 @@
 	padding: 2px;
 	margin-top: 10px;
 	outline: 2px groove gray;
+	border-radius: 2px;
+}
+.response
+{
+	clear:both;
+	margin-top: 5px;
+	color:green;
 }
 
 .bigButton
 {
 	font-size: 2.05em;
+	margin-left: 10px;
+	padding-left: 5px;
+	padding-right:5px;
+	border:none;
+	border-radius: 3px;
+	text-align: center;
 }
 
 h1

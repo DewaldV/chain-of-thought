@@ -2,14 +2,15 @@ function leadsController($scope,leadsBind)
 {
 	$scope.email = "";
 	$scope.button = function() {
+
 		leadsBind.save( { email: $scope.email },
 			function(success,status,header)
 			{
-				$scope.Response = 'SAVED!';
+				$scope.Response = 'THANKS!';
 			},
 			function(errors)
 			{
-				$scope.Response = 'SHIT IS FUCKED!';
+				$scope.Response = 'Ooooooh Something Bad Happend...';
 			});
 	};
 

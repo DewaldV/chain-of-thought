@@ -5,7 +5,7 @@ import (
 	"labix.org/v2/mgo/bson"
 )
 
-func GetMgoLead(id int) Lead {
+func GetMgoLead( email string ) Lead {
 	session, err := mgo.Dial("localhost")
 	if err != nil {
 		panic(err)
@@ -17,7 +17,7 @@ func GetMgoLead(id int) Lead {
 
 	c := session.DB("test").C("leads")
 	result := Lead{}
-	err = c.Find(bson.M{"id": id}).One(&result)
+	err = c.Find(bson.M{"email": email}).One(&result)
 	if err != nil {
 		panic(err)
 	}
