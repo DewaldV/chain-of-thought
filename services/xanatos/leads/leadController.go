@@ -10,6 +10,12 @@ func Register() bool {
 	return true
 }
 
+func (serv LeadService) DoOptions() {
+	rb := serv.ResponseBuilder()
+	rb.AddHeader("Access-Control-Allow-Origin", "*")
+	//rb.AddHeader("Access-Control-Allow-Header", "*")
+}
+
 func (serv LeadService) GetLead(id int) (l Lead) {
 	l = GetLead(id)
 	return
