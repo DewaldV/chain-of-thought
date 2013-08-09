@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-const validConfigPaths string = "/Users/DewaldV/Dev/test.conf"
+const validConfigPaths string = "test.conf"
 
 type Registerable interface {
 	Register() bool

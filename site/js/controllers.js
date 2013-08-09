@@ -1,10 +1,17 @@
-function leadsController($scope)
+function leadsController($scope,leadsBind)
 {
-	$scope.inEmail = "";
 	$scope.email = "";
 	$scope.button = function() {
-		$scope.email = $scope.inEmail;
-		alert($scope.email);
+		alert($scope.email)
+		leadsBind.save($scope.email,
+			function(success,status,header)
+			{
+				alert('SAVED!');
+			},
+			function(errors)
+			{
+				alert('SHIT IS FUCKED!');
+			});
 	};
 
 }
