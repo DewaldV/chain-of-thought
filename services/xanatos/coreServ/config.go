@@ -37,7 +37,8 @@ func LoadConfig(path string) error {
 }
 
 type SiteConfigStruct struct {
-	Location string
+	Location       string
+	AllowedOrigins map[string]bool
 }
 
 type CoreConfigStruct struct {

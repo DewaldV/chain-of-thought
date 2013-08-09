@@ -5,7 +5,7 @@ import (
 	"labix.org/v2/mgo/bson"
 )
 
-func GetLead(id int) Lead {
+func GetMgoLead(id int) Lead {
 	session, err := mgo.Dial("localhost")
 	if err != nil {
 		panic(err)
@@ -25,7 +25,7 @@ func GetLead(id int) Lead {
 	return result
 }
 
-func CreateLead(l Lead) Lead {
+func CreateMgoLead(l Lead) Lead {
 	session, err := mgo.Dial("localhost")
 	if err != nil {
 		panic(err)
