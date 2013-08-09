@@ -22,5 +22,5 @@ func main() {
 		return
 	}
 	http.Handle(coreServ.Conf.RootContext, gorest.Handle())
-	http.ListenAndServe(string(coreServ.Conf.HttpPort), nil)
+	http.ListenAndServe(fmt.Sprintf(":%d", coreServ.Conf.HttpPort), nil)
 }
