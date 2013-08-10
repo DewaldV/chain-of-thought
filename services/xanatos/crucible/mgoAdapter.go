@@ -5,10 +5,7 @@ import (
 )
 
 func ExecuteWithCollection(database, collection string, f func(*mgo.Collection) error) error {
-	session, err := mgo.Dial("localhost")
-	if err != nil {
-		panic(err)
-	}
+	session := GetSession("Default")
 	defer session.Close()
 
 	session.SetMode(mgo.Monotonic, true)
@@ -16,4 +13,23 @@ func ExecuteWithCollection(database, collection string, f func(*mgo.Collection) 
 	c := session.DB(database).C(collection)
 
 	return f(c)
+}
+
+var sessionPool map[string]*mgo.Session
+
+func LoadSessions(dataSourceConfig map[string]*DataSourceConfigStruct) {
+	sessionPool = make(map[string]*mgo.Session)
+	for key, source := range dataSourceConfig {
+		s, _ := mgo.Dial(source.ServerName)
+		sessionPool[key] = s
+	}
+}
+
+func GetSession(dataSource string) *mgo.Session {
+	s, ok := sessionPool[dataSource]
+	if !ok {
+		s, _ := mgo.Dial(Conf.DataSources[dataSource].ServerName)
+		sessionPool[dataSource] = s
+	}
+	return s.Clone()
 }

@@ -15,12 +15,17 @@ type Registerable interface {
 }
 
 func main() {
-	leads.Register()
 	err := crucible.LoadConfig(validConfigPaths)
 	if err != nil {
 		fmt.Printf(err.Error())
 		return
 	}
+	RegisterServices()
+
 	http.Handle(crucible.Conf.RootContext, gorest.Handle())
 	http.ListenAndServe(fmt.Sprintf(":%d", crucible.Conf.HttpPort), nil)
+}
+
+func RegisterServices() {
+	leads.Register()
 }

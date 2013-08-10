@@ -33,12 +33,52 @@ func LoadConfig(path string) error {
 	fmt.Println("Loaded configuration:")
 	fmt.Println(Conf.printConfig())
 
+	LoadSessions(Conf.DataSources)
+
 	return nil
 }
 
-type SiteConfigStruct struct {
+type DataSourceConfigStruct struct {
+	ServerName   string
+	ServerPort   int
+	DatabaseName string
+}
+
+func (d *DataSourceConfigStruct) printConfig() (s string) {
+	s = fmt.Sprintf("\t> ServerName: %s\n", d.ServerName)
+	s += fmt.Sprintf("\t> ServerPort: %d\n", d.ServerPort)
+	s += fmt.Sprintf("\t> DatabaseName: %s\n", d.DatabaseName)
+	return
+}
+
+type ServiceConfigStruct struct {
 	Location       string
 	AllowedOrigins map[string]bool
+	AllowedMethods map[string]bool
+}
+
+func (c *ServiceConfigStruct) printConfig() (s string) {
+	s = fmt.Sprintf("\t> Location: %s\n", c.Location)
+	var allowedMethods string
+	for key := range c.AllowedMethods {
+		allowedMethods += fmt.Sprintf("%s,", key)
+	}
+	s += fmt.Sprintf("\t> AllowedMethods: %s\n", allowedMethods[:len(allowedMethods)-1])
+
+	var allowedOrigins string
+	for key := range c.AllowedOrigins {
+		allowedOrigins += fmt.Sprintf("%s,", key)
+	}
+	s += fmt.Sprintf("\t> AllowedOrigins: %s\n", allowedOrigins[:len(allowedOrigins)-1])
+	return
+}
+
+func newSiteConfigStruct() (s *ServiceConfigStruct) {
+	s = new(ServiceConfigStruct)
+	s.Location = "/"
+	s.AllowedOrigins = make(map[string]bool)
+	s.AllowedOrigins["localhost"] = true
+	return
 }
 
 type CoreConfigStruct struct {
@@ -46,7 +86,8 @@ type CoreConfigStruct struct {
 	HttpsPort     int
 	WorkerThreads int
 	RootContext   string
-	//Sites map[string]SiteConfigStruct
+	DataSources   map[string]*DataSourceConfigStruct
+	Services      map[string]*ServiceConfigStruct
 }
 
 func (c *CoreConfigStruct) printConfig() (s string) {
@@ -54,6 +95,14 @@ func (c *CoreConfigStruct) printConfig() (s string) {
 	s += fmt.Sprintf("HttpsPort: %d\n", c.HttpsPort)
 	s += fmt.Sprintf("RootContext: %s\n", c.RootContext)
 	s += fmt.Sprintf("WorkerThreads: %d\n", c.WorkerThreads)
+	for key, value := range c.DataSources {
+		s += fmt.Sprintf("DataSourceName: %s\n", key)
+		s += value.printConfig()
+	}
+	for key, value := range c.Services {
+		s += fmt.Sprintf("ServiceName: %s\n", key)
+		s += value.printConfig()
+	}
 	return
 }
 
@@ -63,12 +112,6 @@ func newCoreConfigStruct() (c *CoreConfigStruct) {
 	c.HttpsPort = 44443
 	c.RootContext = "/"
 	c.WorkerThreads = 1
-	return
-}
-
-func newSiteConfigStruct() (s *SiteConfigStruct) {
-	s = new(SiteConfigStruct)
-	s.Location = "/"
 	return
 }
 
