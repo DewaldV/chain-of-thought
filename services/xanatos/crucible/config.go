@@ -8,6 +8,27 @@ import (
 	"os"
 )
 
+type CoreConfigStruct struct {
+	HttpPort      int
+	HttpsPort     int
+	WorkerThreads int
+	RootContext   string
+	DataSources   map[string]*DataSourceConfigStruct
+	Services      map[string]*ServiceConfigStruct
+}
+
+type DataSourceConfigStruct struct {
+	ServerName   string
+	ServerPort   int
+	DatabaseName string
+}
+
+type ServiceConfigStruct struct {
+	Location       string
+	AllowedOrigins map[string]bool
+	AllowedMethods map[string]bool
+}
+
 var Conf *CoreConfigStruct
 
 func LoadConfig(path string) error {
@@ -38,41 +59,6 @@ func LoadConfig(path string) error {
 	return nil
 }
 
-type DataSourceConfigStruct struct {
-	ServerName   string
-	ServerPort   int
-	DatabaseName string
-}
-
-func (d *DataSourceConfigStruct) printConfig() (s string) {
-	s = fmt.Sprintf("\t> ServerName: %s\n", d.ServerName)
-	s += fmt.Sprintf("\t> ServerPort: %d\n", d.ServerPort)
-	s += fmt.Sprintf("\t> DatabaseName: %s\n", d.DatabaseName)
-	return
-}
-
-type ServiceConfigStruct struct {
-	Location       string
-	AllowedOrigins map[string]bool
-	AllowedMethods map[string]bool
-}
-
-func (c *ServiceConfigStruct) printConfig() (s string) {
-	s = fmt.Sprintf("\t> Location: %s\n", c.Location)
-	var allowedMethods string
-	for key := range c.AllowedMethods {
-		allowedMethods += fmt.Sprintf("%s,", key)
-	}
-	s += fmt.Sprintf("\t> AllowedMethods: %s\n", allowedMethods[:len(allowedMethods)-1])
-
-	var allowedOrigins string
-	for key := range c.AllowedOrigins {
-		allowedOrigins += fmt.Sprintf("%s,", key)
-	}
-	s += fmt.Sprintf("\t> AllowedOrigins: %s\n", allowedOrigins[:len(allowedOrigins)-1])
-	return
-}
-
 func newSiteConfigStruct() (s *ServiceConfigStruct) {
 	s = new(ServiceConfigStruct)
 	s.Location = "/"
@@ -81,13 +67,13 @@ func newSiteConfigStruct() (s *ServiceConfigStruct) {
 	return
 }
 
-type CoreConfigStruct struct {
-	HttpPort      int
-	HttpsPort     int
-	WorkerThreads int
-	RootContext   string
-	DataSources   map[string]*DataSourceConfigStruct
-	Services      map[string]*ServiceConfigStruct
+func newCoreConfigStruct() (c *CoreConfigStruct) {
+	c = new(CoreConfigStruct)
+	c.HttpPort = 8787
+	c.HttpsPort = 44443
+	c.RootContext = "/"
+	c.WorkerThreads = 1
+	return
 }
 
 func (c *CoreConfigStruct) printConfig() (s string) {
@@ -106,12 +92,26 @@ func (c *CoreConfigStruct) printConfig() (s string) {
 	return
 }
 
-func newCoreConfigStruct() (c *CoreConfigStruct) {
-	c = new(CoreConfigStruct)
-	c.HttpPort = 8787
-	c.HttpsPort = 44443
-	c.RootContext = "/"
-	c.WorkerThreads = 1
+func (d *DataSourceConfigStruct) printConfig() (s string) {
+	s = fmt.Sprintf("\t> ServerName: %s\n", d.ServerName)
+	s += fmt.Sprintf("\t> ServerPort: %d\n", d.ServerPort)
+	s += fmt.Sprintf("\t> DatabaseName: %s\n", d.DatabaseName)
+	return
+}
+
+func (c *ServiceConfigStruct) printConfig() (s string) {
+	s = fmt.Sprintf("\t> Location: %s\n", c.Location)
+	var allowedMethods string
+	for key := range c.AllowedMethods {
+		allowedMethods += fmt.Sprintf("%s,", key)
+	}
+	s += fmt.Sprintf("\t> AllowedMethods: %s\n", allowedMethods[:len(allowedMethods)-1])
+
+	var allowedOrigins string
+	for key := range c.AllowedOrigins {
+		allowedOrigins += fmt.Sprintf("%s,", key)
+	}
+	s += fmt.Sprintf("\t> AllowedOrigins: %s\n", allowedOrigins[:len(allowedOrigins)-1])
 	return
 }
 
