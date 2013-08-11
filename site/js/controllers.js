@@ -1,9 +1,7 @@
 function leadsController($scope,leadsBind)
 {
 	$scope.email = "";
-	$scope.testClick = function() {
-		$scope.Lead = leadsBind.get( { email: $scope.email  } );
-	}	
+	
 	$scope.button = function() {
 		leadsBind.save( { email: $scope.email },
 			function(success,status,header)
