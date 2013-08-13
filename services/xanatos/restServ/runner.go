@@ -2,20 +2,25 @@ package main
 
 import (
 	"code.google.com/p/gorest"
+	"flag"
 	"fmt"
-	"github.com/DewaldV/chain-of-thought/services/xanatos/crucible"
 	"github.com/DewaldV/chain-of-thought/services/xanatos/leads"
+	"github.com/DewaldV/crucible"
 	"net/http"
 )
 
-const validConfigPaths string = "test.conf"
+var (
+	validConfigPaths = flag.String("c", "test.conf", "Config path")
+)
 
 type Registerable interface {
 	Register() bool
 }
 
 func main() {
-	err := crucible.LoadConfig(validConfigPaths)
+	flag.Parse()
+
+	err := crucible.LoadConfig(*validConfigPaths)
 	if err != nil {
 		fmt.Printf(err.Error())
 		return

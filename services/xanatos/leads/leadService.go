@@ -2,7 +2,7 @@ package leads
 
 import (
 	"code.google.com/p/gorest"
-	"github.com/DewaldV/chain-of-thought/services/xanatos/crucible"
+	"github.com/DewaldV/crucible"
 	"time"
 )
 

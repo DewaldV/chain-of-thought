@@ -1,7 +1,7 @@
 package leads
 
 import (
-	"github.com/DewaldV/chain-of-thought/services/xanatos/crucible"
+	"github.com/DewaldV/crucible"
 	"labix.org/v2/mgo"
 	"labix.org/v2/mgo/bson"
 )
