@@ -2,29 +2,32 @@ package main
 
 import (
 	"code.google.com/p/gorest"
-	"flag"
+	_ "flag"
 	"fmt"
 	"github.com/DewaldV/chain-of-thought/services/xanatos/leads"
 	"github.com/DewaldV/crucible"
 	"net/http"
 )
 
+/*
 var (
 	validConfigPaths = flag.String("c", "test.conf", "Config path")
 )
-
+*/
 type Registerable interface {
 	Register() bool
 }
 
 func main() {
-	flag.Parse()
+	//flag.Parse()
 
-	err := crucible.LoadConfig(*validConfigPaths)
-	if err != nil {
-		fmt.Printf(err.Error())
-		return
-	}
+	/*
+		err := crucible.LoadConfig(*validConfigPaths)
+		if err != nil {
+			fmt.Printf(err.Error())
+			return
+		}
+	*/
 	RegisterServices()
 
 	http.Handle(crucible.Conf.RootContext, gorest.Handle())
