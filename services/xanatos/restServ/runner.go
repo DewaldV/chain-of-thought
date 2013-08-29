@@ -20,7 +20,7 @@ func main() {
 }
 
 func RegisterServices() {
-	//crucible.AddFilter(crucible.CorsFilter())
+	crucible.AddFilter(crucible.CorsFilter())
 	//crucible.AddFilter(crucible.CachingFilter())
 	crucible.AddHandler(gorest.Handle())
 }
