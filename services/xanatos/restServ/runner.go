@@ -30,10 +30,11 @@ func main() {
 	*/
 	RegisterServices()
 
-	http.Handle(crucible.Conf.RootContext, gorest.Handle())
+	http.Handle(crucible.Conf.RootContext, crucible.Handle())
 	http.ListenAndServe(fmt.Sprintf(":%d", crucible.Conf.HttpPort), nil)
 }
 
 func RegisterServices() {
 	leads.Register()
+	crucible.AddHandler(gorest.Handle())
 }
