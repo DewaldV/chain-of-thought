@@ -8,6 +8,10 @@ import (
 	"time"
 )
 
+func init() {
+	Register()
+}
+
 func Register() bool {
 	serv := &LeadService{serviceConfig: crucible.Conf.Services["Leads"]}
 	gorest.RegisterService(serv)
